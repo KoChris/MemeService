@@ -1,13 +1,13 @@
-package com.memes.api.memesservice;
+package com.hacking.MemeService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MemesServiceApplication {
+public class MemeServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MemesServiceApplication.class, args);
+		SpringApplication.run(MemeServiceApplication.class, args);
 	}
 
 }
