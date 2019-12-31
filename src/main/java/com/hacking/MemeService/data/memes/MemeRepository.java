@@ -1,4 +1,4 @@
-package com.hacking.MemeService.data;
+package com.hacking.MemeService.data.memes;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

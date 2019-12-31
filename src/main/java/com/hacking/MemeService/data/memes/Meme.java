@@ -1,4 +1,4 @@
-package com.hacking.MemeService.data;
+package com.hacking.MemeService.data.memes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
