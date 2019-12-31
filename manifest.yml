@@ -1,0 +1,4 @@
+---
+applications:
+  - name: MemeService
+    path: target/MemeService-0.0.1-SNAPSHOT.jar
