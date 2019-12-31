@@ -1,0 +1,9 @@
+language: java
+deploy:
+  provider: cloudfoundry
+  username: chris.ko791@gmail.com
+  password:
+    secure: "JKHLkSQF0N4juKPMLhAiDoFNgILAq3xXgYBeGUQFNLh61NNXgtTg6KDRH8t/QPt0qCNhjjufAuGpLYosUVbWCBYxnpow9enCMZAVo6f4u/0Y9Kzf8N01H1FU7mi/CsSofft4JJcMY7HfFiM9FXytBT3hvBmcB5Bf5qT2z9MGpIN9Lv8OZcEuv28Ex0uVjAyBy8ojPBGK+J43IOuFXe6+SW4ZJRHrBgjJ+DCroCznTQ2GaOujOSCBRXH0JsbEdlAC7RhTyHpcH/tURbpvvGUg3NLh72jnU3c+9yunfJgLZoHcepUy2bfL0GlkE70Ikvm2uvuKnP+KUHgers6n3x6fMyN5Q72caDl01rvEIoZp8bJguxu39MDMUf2ZNhdKcvZcWiHoYwvtrKjKA5UZFEAeW2G899buBLLw953yHEfuodrfeiB1hKdpYRnuCvY8rSBxjA7+gYwoCrBFdcuEiFdOOZAmkq6g7k79OCxxSsC1MKppcVHYdp2IEHyIUCkw5RmJIg/v1U9O0JTb3IMocXjkQiyn+gAC+fBasYSx9CICPUig/Qb/uqJIIz1kQR4jhuY8BkynYRA5oZdn5hUBChYBmazedDI9Ld9NoGZkXGKGTWQ/WuNE70TEv06SVl5h/AqDe07lqe86DA7sIrBq5ymm2C7PxqLYrRgdaAi3GcfMqwo="
+  api: https://api.run.pivotal.io
+  organization: dataflow-test
+  space: development
