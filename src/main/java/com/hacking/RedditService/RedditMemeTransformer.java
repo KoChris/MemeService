@@ -29,8 +29,10 @@ public class RedditMemeTransformer {
             log.info("Error extracting Reddit API response: " + redditApiResponse);
             log.info(e.getMessage());
         } finally {
-            return returnMemes;
+            log.info("Memes have been retrieved");
         }
+
+        return returnMemes;
     }
 
     @NotNull
