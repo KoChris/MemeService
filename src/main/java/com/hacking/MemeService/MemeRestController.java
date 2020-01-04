@@ -43,4 +43,9 @@ public class MemeRestController {
         memeRepository.saveAll(Arrays.asList(meme1,meme2,meme3,meme4,meme5));
     }
 
+    @DeleteMapping("/deleteAllMemes")
+    public void deleteMemes(){
+        memeRepository.deleteAll();
+    }
+
 }
