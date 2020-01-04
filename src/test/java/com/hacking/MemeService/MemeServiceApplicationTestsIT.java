@@ -3,7 +3,6 @@ package com.hacking.MemeService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
 
 import org.junit.jupiter.api.DisplayName;
@@ -17,8 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 //Run using 'mvn test -Dtest=MemeServiceApplicationTestsIT'
 
