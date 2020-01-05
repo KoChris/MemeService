@@ -21,10 +21,15 @@ tags:
     description: Admin operations which shouldn't be accessible
     
 paths:
+  /memes/loadAllMemes:
+    get:
+      tags:
+      - Admin
+      summary: "Load all memes into the database"
+      responses:
+        '200':
+          description: Successful operation
   /memes:
-  
-    #/loadAllMemes:
-
     get:
       tags:
         - Memes
@@ -40,7 +45,6 @@ paths:
                   $ref: '#/components/schemas/Meme'
     post:
       tags:
-        - Memes
         - Admin
       summary: Add a new meme to the economy
       operationId: addMeme
@@ -62,7 +66,6 @@ paths:
       x-codegen-request-body-name: body
     delete:
       tags:
-        - Memes
         - Admin
       summary: Deletes all memes
       description: Clears the database for administrative reasons
@@ -72,19 +75,13 @@ paths:
           description: Successful operation
           content: {}
   
-  /answers/{index}:
+  /answers/1:
     post:
       tags:
         - Answers
-      summary: Post an answer to a question
+      summary: Submit an answer to the first puzzle
       operationId: answerQuestion
       parameters:
-        - name: index
-          in: path
-          required: true
-          description: Question being answered (1 through 5)
-          schema:
-            type: integer
         - name: studentName
           in: header
           required: true
@@ -111,8 +108,74 @@ paths:
         '400':
           description: Bad request
           content: {}
-      x-codegen-request-body-name: body
-      
+  /answers/2:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the second puzzle
+      operationId: answerQuestion
+      parameters:
+        - name: studentName
+          in: header
+          required: true
+          description: The student's name
+          schema:
+            type: string
+        - name: studentEmail
+          in: header
+          required: true
+          description: The student's email so they can be contacted
+          schema:
+            type: string
+      requestBody:
+        description: Answer to the question
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+        required: true
+      responses:
+        '200':
+          description: 'Answer accepted, correct'
+          content: {}
+        '400':
+          description: Bad request
+          content: {}
+
+  /answers/3:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the third puzzle
+      operationId: answerQuestion
+      parameters:
+        - name: studentName
+          in: header
+          required: true
+          description: The student's name
+          schema:
+            type: string
+        - name: studentEmail
+          in: header
+          required: true
+          description: The student's email so they can be contacted
+          schema:
+            type: string
+      requestBody:
+        description: Answer to the question
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+        required: true
+      responses:
+        '200':
+          description: 'Answer accepted, correct'
+          content: {}
+        '400':
+          description: Bad request
+          content: {}
+
 components:
   schemas:
     Answer:
