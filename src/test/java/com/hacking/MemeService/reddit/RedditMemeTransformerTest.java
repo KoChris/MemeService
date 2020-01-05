@@ -1,19 +1,18 @@
-package com.hacking.RedditService;
-
-import com.hacking.MemeService.data.Meme;
-import com.hacking.RedditService.RedditMemeTransformer;
-import com.hacking.RedditService.RedditService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.hacking.MemeService.reddit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.hacking.MemeService.data.Meme;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 class RedditMemeTransformerTest {
     @Mock

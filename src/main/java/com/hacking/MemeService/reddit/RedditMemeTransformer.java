@@ -1,16 +1,17 @@
-package com.hacking.RedditService;
+package com.hacking.MemeService.reddit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hacking.MemeService.data.Meme;
-import com.hacking.RedditService.RedditService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor

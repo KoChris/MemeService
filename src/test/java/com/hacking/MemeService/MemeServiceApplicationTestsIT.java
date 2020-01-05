@@ -1,6 +1,9 @@
 package com.hacking.MemeService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.hacking.MemeService.data.MemeRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,9 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 //Run using 'mvn test -Dtest=MemeServiceApplicationTestsIT'
 

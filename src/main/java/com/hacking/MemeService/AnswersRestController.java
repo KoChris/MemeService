@@ -24,6 +24,16 @@ public class AnswersRestController {
         @RequestHeader String studentEmail,
         @RequestBody final Object answer) throws WrongAnswerException, ForbiddenIndexException {
 
+            // Student posts an answer
+            // We capture their name, email, the current time and their answer
+
+            // We only need their answer to verify it's correct
+            // We store their name and email in the student object
+
+            //Student student = new Student(stu);
+            // student.setName(studentName);
+            // student.setEmail(studentEmail);
+
 
             log.info("Student " + studentName + " at " + studentEmail);
             // TODO: Check that the email is valid

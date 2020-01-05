@@ -1,9 +1,10 @@
-package com.hacking.RedditService;
+package com.hacking.MemeService.reddit;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RedditService {
