@@ -1,6 +1,7 @@
-package com.hacking.MemeService;
+package com.hacking.RedditService;
 
 import com.hacking.MemeService.data.Meme;
+import com.hacking.RedditService.RedditService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;

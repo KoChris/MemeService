@@ -2,6 +2,8 @@ package com.hacking.MemeService;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
+import com.hacking.RedditService.RedditMemeTransformer;
+import com.hacking.RedditService.RedditService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.web.bind.annotation.*;

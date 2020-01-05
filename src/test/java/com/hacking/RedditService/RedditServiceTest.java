@@ -1,5 +1,6 @@
-package com.hacking.MemeService;
+package com.hacking.RedditService;
 
+import com.hacking.RedditService.RedditService;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.*;

@@ -1,4 +1,4 @@
-package com.hacking.MemeService;
+package com.hacking.RedditService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +28,7 @@ public class RedditService {
                 .build();
     }
 
-    RedditService() {
+    public RedditService() {
         this("https://gateway.reddit.com/desktopapi/v1/");
     }
 

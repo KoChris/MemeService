@@ -1,6 +1,8 @@
-package com.hacking.MemeService;
+package com.hacking.RedditService;
 
 import com.hacking.MemeService.data.Meme;
+import com.hacking.RedditService.RedditMemeTransformer;
+import com.hacking.RedditService.RedditService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
