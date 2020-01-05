@@ -82,9 +82,9 @@ paths:
         - name: index
           in: path
           required: true
-          description: The student's name
+          description: Question being answered (1 through 5)
           schema:
-            type: string
+            type: integer
         - name: studentName
           in: header
           required: true

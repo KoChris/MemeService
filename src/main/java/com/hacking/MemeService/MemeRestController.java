@@ -35,8 +35,6 @@ public class MemeRestController {
 
     @DeleteMapping
     public void deleteMemes(){
-        // TODO: Better to map this to just DELETE "/"?
-        // TODO: Authenticate this endpoint
         memeRepository.deleteAll();
     }
 
