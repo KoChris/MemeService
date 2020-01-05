@@ -1,14 +1,17 @@
 package com.hacking.MemeService;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 
-public class RedditApiHandler {
-    private WebClient webClient;
+@Slf4j
+public class RedditService {
+    private static WebClient webClient;
 
-    RedditApiHandler() {
+    RedditService(String baseUrl) {
         webClient = WebClient.builder()
-                .baseUrl("https://gateway.reddit.com/desktopapi/v1/")
+                .baseUrl(baseUrl)
                 .defaultHeader("authority", "gateway.reddit.com")
                 .defaultHeader(HttpHeaders.ORIGIN, "https://www.reddit.com")
                 .defaultHeader("x-reddit-loid", "0000000000518q0n1w.2.1573960721631.Z0FBQUFBQmQwTHdSSEJoQldoNUNfSEl3Q1FfY2VqcVA2NXdBNEZaYXd6ZlNDLVA4VlhHc1U2OWNZSkk4b0pDMlQxR19SaXp1TDJhdkFYV2Z5TmVOdjBLWWJHVGk5THVpWkpKVVpJTm5XSXBVTU81OG9jOGVyMFZoclRwa3RlU0Nqd2ZGMTk0NFNnb0I")
@@ -25,23 +28,32 @@ public class RedditApiHandler {
                 .build();
     }
 
+    RedditService() {
+        this("https://gateway.reddit.com/desktopapi/v1/");
+    }
+
 
     public String getTopAllTimeMemes(String subReddit) {
-        return webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("subreddits/" + subReddit)
-                        .queryParam("rtj","only")
-                        .queryParam("redditWebClient","web2x")
-                        .queryParam("app","web2x-client-production")
-                        .queryParam("allow_over18","false")
-                        .queryParam("include","prefsSubreddit")
-                        .queryParam("t","all")
-                        .queryParam("sort","top")
-                        .queryParam("geo_filter","CA")
-                        .queryParam("layout","card")
-                        .build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        try {
+            return webClient.get()
+                    .uri(uriBuilder -> uriBuilder.path("subreddits/" + subReddit)
+                            .queryParam("rtj","only")
+                            .queryParam("redditWebClient","web2x")
+                            .queryParam("app","web2x-client-production")
+                            .queryParam("allow_over18","false")
+                            .queryParam("include","prefsSubreddit")
+                            .queryParam("t","all")
+                            .queryParam("sort","top")
+                            .queryParam("geo_filter","CA")
+                            .queryParam("layout","card")
+                            .build())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        } catch (WebClientException e) {
+            log.info("Got a bad response from the reddit API: " + e.getMessage());
+            return "";
+        }
     }
 
 }

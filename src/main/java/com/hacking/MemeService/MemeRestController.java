@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -33,7 +32,7 @@ public class MemeRestController {
 
     @GetMapping("/loadAllMemes")
     public void loadMemes(){
-        RedditMemeTransformer memeTransformer = new RedditMemeTransformer(new RedditApiHandler());
+        RedditMemeTransformer memeTransformer = new RedditMemeTransformer(new RedditService());
 
         memeRepository.saveAll(memeTransformer.retrieveMemes());
     }

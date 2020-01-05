@@ -15,13 +15,13 @@ import static org.mockito.Mockito.when;
 
 class RedditMemeTransformerTest {
     @Mock
-    RedditApiHandler mockRedditApiHandler;
-    RedditMemeTransformer redditMemeTransformer;
+    private static RedditService mockRedditService;
+    private static RedditMemeTransformer redditMemeTransformer;
 
     @BeforeEach
     void setUp() {
-        mockRedditApiHandler = mock(RedditApiHandler.class);
-        redditMemeTransformer = new RedditMemeTransformer(mockRedditApiHandler);
+        mockRedditService = mock(RedditService.class);
+        redditMemeTransformer = new RedditMemeTransformer(mockRedditService);
     }
 
     @Test
@@ -31,7 +31,7 @@ class RedditMemeTransformerTest {
         List<Meme> expectedMemeList = new ArrayList<>();
         expectedMemeList.add(expectedMeme);
 
-        when(mockRedditApiHandler.getTopAllTimeMemes("MemeEconomy"))
+        when(mockRedditService.getTopAllTimeMemes("MemeEconomy"))
                 .thenReturn("{\"postIds\":" +
                 "[\"TheGreatest\"]," +
                 "\"posts\":{" +
@@ -53,7 +53,7 @@ class RedditMemeTransformerTest {
     void returnsEmptyListOnEmptyApiResponse() {
         List<Meme> expectedEmptyMemeList = new ArrayList<>();
 
-        when(mockRedditApiHandler.getTopAllTimeMemes("MemeEconomy"))
+        when(mockRedditService.getTopAllTimeMemes("MemeEconomy"))
                 .thenReturn("");
 
         List<Meme> actualMemeList = redditMemeTransformer.retrieveMemes();
@@ -65,7 +65,7 @@ class RedditMemeTransformerTest {
     void returnsEmptyListWhenMemeInformationIsMalformed() {
         List<Meme> expectedEmptyMemeList = new ArrayList<>();
 
-        when(mockRedditApiHandler.getTopAllTimeMemes("MemeEconomy"))
+        when(mockRedditService.getTopAllTimeMemes("MemeEconomy"))
                 .thenReturn("{\"postIds\":" +
                         "[\"TheGreatest\"]," +
                         "\"posts\":{" +
