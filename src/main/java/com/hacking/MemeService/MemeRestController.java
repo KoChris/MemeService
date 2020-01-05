@@ -17,11 +17,6 @@ public class MemeRestController {
 
     private MemeRepository memeRepository;
 
-    @GetMapping("/hello")
-    public String helloThere() {
-        return "hello there";
-    }
-
     @GetMapping
     public List<Meme> getAllMemes(){
         return IterableUtils.toList(memeRepository.findAll());
@@ -35,12 +30,13 @@ public class MemeRestController {
     @GetMapping("/loadAllMemes")
     public void loadMemes(){
         RedditMemeTransformer memeTransformer = new RedditMemeTransformer(new RedditService());
-
         memeRepository.saveAll(memeTransformer.retrieveMemes());
     }
 
-    @DeleteMapping("/deleteAllMemes")
+    @DeleteMapping
     public void deleteMemes(){
+        // TODO: Better to map this to just DELETE "/"?
+        // TODO: Authenticate this endpoint
         memeRepository.deleteAll();
     }
 

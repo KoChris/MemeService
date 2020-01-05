@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "Hello fellow kids.  Use this API to download details of memes from the Reddit Meme Economy and solve puzzles"
+  version: "1.0.0"
+  title: "Meme Service"
+  license:
+    name: "TODO"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "memeservice.cfapps.io"
+basePath: "/api"
+tags:
+- name: "Memes"
+  description: "Download some may-mays"
+- name: "Answers"
+  description: "Submit your answers to the puzzles"
+
+schemes:
+- "https"
+
+paths:
+  # /hello
+  # /loadAllMemes
+  /memes:
+    get:
+      tags:
+      - "Memes"
+      responses:
+        200:
+          description: "Successful operation"
+          schema: 
+            type: "array"
+            items:
+              $ref: "#/definitions/Meme"
+    post:
+      tags:
+      - "Memes"
+      summary: "Add a new meme to the economy"
+      description: ""
+      operationId: "addMeme"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Meme object to be added to the database"
+        required: true
+        schema:
+          $ref: "#/definitions/Meme"
+      responses:
+        204:
+          description: "No Content"
+        400:
+          description: "Bad Request"
+          
+    delete:
+      tags:
+      - "Memes"
+      summary: "Deletes all memes"
+      description: "Clears the database for administrative reasons"
+      operationId: "deleteMemes"
+      responses:
+        204:
+          description: "Successful operation"
+      
+  /answers:
+    post:
+      tags:
+      - "Answers"
+      summary: "Post an answer to one of the provided questions"
+      description: ""
+      operationId: "answerQuestion"
+      consumes:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "studentName"
+        type: "string"
+        required: true
+      - in: "header"
+        name: "studentEmail"
+        type: "string"
+        required: true
+      - in: "body"
+        name: "body"
+        description: "Answer to the question"
+        required: true
+        schema: 
+          $ref: '#/definitions/Answer'
+      responses:
+        204:
+          description: "Answer accepted, correct"
+        400:
+          description: "Bad request"
+          
+definitions:
+  Answer:
+    type: "object"
+    
+  Meme:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "string"
+        description: "Unique identifier of the meme"
+        example: "1"
+      title:
+        type: "string"
+        description: "Title of the post on Reddit"
+        example: "Hello There"
+      author:
+        type: "string"
+        description: "Redditor who posted the meme"
+        example: "Obi-wan Kenobi"
+      link:
+        type: "string"
+        description: "Reddit link to the meme"
+        example: "https://www.youtube.com/watch?v=rEq1Z0bjdwc"
+      points:
+        type: "integer"
+        description: "Karma the post recieved by the time it was imported into the database"
+        example: "9001"
+    xml:
+      name: "Pet"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
