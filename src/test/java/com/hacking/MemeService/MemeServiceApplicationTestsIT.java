@@ -71,7 +71,6 @@ class MemeServiceApplicationTestsIT {
 		.accept(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers.status().isOk())
 		.andReturn();
-		
 	}
 	
 	@Test

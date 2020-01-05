@@ -33,14 +33,17 @@ public class MemeRestController {
 
     @GetMapping("/loadAllMemes")
     public void loadMemes(){
+//        RedditMemeTransformerFactory memeTransformerFactory = new RedditMemeTransformerFactory();
+//
+//        RedditMemeTransformer memeTransformer = memeTransformerFactory.getMemeTransformer();
 
-        Meme meme1 =  new Meme("0", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme2 =  new Meme("1", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme3 =  new Meme("2", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme4 =  new Meme("3", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme5 =  new Meme("4", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-
-        memeRepository.saveAll(Arrays.asList(meme1,meme2,meme3,meme4,meme5));
+        RedditMemeTransformer memeTransformer = new RedditMemeTransformer();
+//        Meme meme1 =  new Meme("0", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
+//        Meme meme2 =  new Meme("1", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
+//        Meme meme3 =  new Meme("2", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
+//        Meme meme4 =  new Meme("3", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
+//        Meme meme5 =  new Meme("4", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
+        memeRepository.saveAll(memeTransformer.retrieveMemes());
     }
 
     @DeleteMapping("/deleteAllMemes")
