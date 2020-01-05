@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.2.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hacking</groupId>
 	<artifactId>MemeService</artifactId>
@@ -30,11 +31,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 
 		<!-- For running embedded mongo on local-->
 		<dependency>
@@ -45,7 +41,7 @@
 		<dependency>
 			<groupId>cz.jirutka.spring</groupId>
 			<artifactId>embedmongo-spring</artifactId>
-			<version>RELEASE</version>
+			<version>1.3.1</version>
 		</dependency>
 
 		<!-- Ease of life -->
@@ -94,7 +90,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>18.0.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -117,6 +113,14 @@
 			<groupId>org.skyscreamer</groupId>
 			<artifactId>jsonassert</artifactId>
 			<version>1.5.0</version>
+		</dependency>
+
+		<!-- Jupiter engine for JUnit 5 -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.1.0</version>
+			<scope>test</scope>
 		</dependency>
     </dependencies>
 

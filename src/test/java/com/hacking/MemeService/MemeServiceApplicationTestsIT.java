@@ -41,38 +41,35 @@ class MemeServiceApplicationTestsIT {
 		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes/hello")
                 .contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
-                .andReturn();
-
-        String resultText = result.getResponse().getContentAsString();
-        assertNotNull(resultText);
-        assertEquals("hello there", resultText);
+            .andReturn();
+        assertEquals("hello there", result.getResponse().getContentAsString());
 	}
 
 	@Test
 	@DisplayName("Getting all memes is empty when the application starts")
 	void getAllMemes() throws Exception {
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
-		.contentType(MediaType.APPLICATION_JSON)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.content().json("[]"))
-		.andReturn();
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().json("[]"))
+			.andReturn();
 	}
 	
 	@Test
 	@DisplayName("Memes can be loaded in bulk.")
 	void memesLoadCorrectly() throws Exception {
-		MvcResult loadMemes = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes/loadAllMemes")
-		.contentType(MediaType.APPLICATION_JSON)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.content().string(""))
-		.andReturn();
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes/loadAllMemes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().string(""))
+			.andReturn();
 		MvcResult resultOfLoad = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
-		.contentType(MediaType.APPLICATION_JSON)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andReturn();
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
 
 		String content = resultOfLoad.getResponse().getContentAsString();
 		JSONAssert.assertEquals("[28]", content, new ArraySizeComparator(JSONCompareMode.LENIENT));
@@ -81,16 +78,16 @@ class MemeServiceApplicationTestsIT {
 	@Test
 	@DisplayName("Can save a single meme.")
 	void canSaveAMeme() throws Exception {
-		MvcResult saveMeme = mockMvc.perform(MockMvcRequestBuilders.post("/api/memes/")
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON)
-			.content("{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}"))
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/memes/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}"))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().string(""))
 			.andReturn();
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().json("[{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}]"))
 			.andReturn();
@@ -100,8 +97,43 @@ class MemeServiceApplicationTestsIT {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/deleteAllMemes")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andReturn();
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
 	}
 
+	@Test
+	@DisplayName("Students can submit an answer to a question.")
+	void canPostAnAnswer() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/answers/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("studentName", "Johnny Bravo")
+				.header("studentEmail", "email")
+				.content("{}"))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
+	}
+
+	@Test
+	@DisplayName("No student name header? BAD REQUEST!")
+	void returnsBadRequestWhenStudentNameHeaderMissing() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/answers/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("studentEmail", "email")
+				.content("{}"))
+			.andExpect(MockMvcResultMatchers.status().isBadRequest())
+			.andExpect(MockMvcResultMatchers.content().string("Required header 'studentName' is missing"))
+			.andReturn();
+	}
+
+	@Test
+	@DisplayName("No student email header? BAD REQUEST!")
+	void returnsBadRequestWhenStudentEmailHeaderMissing() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/answers/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("studentName", "Johnny Bravo")
+				.content("{}"))
+			.andExpect(MockMvcResultMatchers.status().isBadRequest())
+			.andExpect(MockMvcResultMatchers.content().string("Required header 'studentEmail' is missing"))
+			.andReturn();
+	}
 }
