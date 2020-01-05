@@ -1,0 +1,207 @@
+openapi: 3.0.1
+info:
+  title: Meme Service
+  description: >-
+    Hello fellow kids.  Use this API to download details of memes from the
+    Reddit Meme Economy and solve puzzles
+  license:
+    name: TODO
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: 0.0.0
+
+servers:
+  - url: 'https://memeservice.cfapps.io/api'
+  
+tags:
+  - name: Memes
+    description: Download some may-mays
+  - name: Answers
+    description: Submit your answers to the puzzles
+  - name: Admin
+    description: Admin operations which shouldn't be accessible
+    
+paths:
+  /memes/loadAllMemes:
+    get:
+      tags:
+      - Admin
+      summary: "Load all memes into the database"
+      responses:
+        '200':
+          description: Successful operation
+  /memes:
+    get:
+      tags:
+        - Memes
+      summary: Retrieve all memes
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meme'
+    post:
+      tags:
+        - Admin
+      summary: Add a new meme to the economy
+      operationId: addMeme
+      requestBody:
+        description: Meme object to be added to the database
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Meme'
+        required: true
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+          content: 
+            text/plain;charset=UTF-8:
+              example: "Answer does not match"
+      x-codegen-request-body-name: body
+    delete:
+      tags:
+        - Admin
+      summary: Deletes all memes
+      description: Clears the database for administrative reasons
+      operationId: deleteMemes
+      responses:
+        '200':
+          description: Successful operation
+          content: {}
+  
+  /answers/1:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the first puzzle
+      operationId: answerQuestion
+      parameters:
+        - name: studentName
+          in: header
+          required: true
+          description: The student's name
+          schema:
+            type: string
+        - name: studentEmail
+          in: header
+          required: true
+          description: The student's email so they can be contacted
+          schema:
+            type: string
+      requestBody:
+        description: Answer to the question
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+        required: true
+      responses:
+        '200':
+          description: 'Answer accepted, correct'
+          content: {}
+        '400':
+          description: Bad request
+          content: {}
+  /answers/2:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the second puzzle
+      operationId: answerQuestion
+      parameters:
+        - name: studentName
+          in: header
+          required: true
+          description: The student's name
+          schema:
+            type: string
+        - name: studentEmail
+          in: header
+          required: true
+          description: The student's email so they can be contacted
+          schema:
+            type: string
+      requestBody:
+        description: Answer to the question
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+        required: true
+      responses:
+        '200':
+          description: 'Answer accepted, correct'
+          content: {}
+        '400':
+          description: Bad request
+          content: {}
+
+  /answers/3:
+    post:
+      tags:
+        - Answers
+      summary: Submit an answer to the third puzzle
+      operationId: answerQuestion
+      parameters:
+        - name: studentName
+          in: header
+          required: true
+          description: The student's name
+          schema:
+            type: string
+        - name: studentEmail
+          in: header
+          required: true
+          description: The student's email so they can be contacted
+          schema:
+            type: string
+      requestBody:
+        description: Answer to the question
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+        required: true
+      responses:
+        '200':
+          description: 'Answer accepted, correct'
+          content: {}
+        '400':
+          description: Bad request
+          content: {}
+
+components:
+  schemas:
+    Answer:
+      type: object
+    Meme:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the meme
+          example: '1'
+        title:
+          type: string
+          description: Title of the post on Reddit
+          example: Hello There
+        author:
+          type: string
+          description: Redditor who posted the meme
+          example: Obi-wan Kenobi
+        link:
+          type: string
+          description: Reddit link to the meme
+          example: 'https://www.youtube.com/watch?v=rEq1Z0bjdwc'
+        points:
+          type: integer
+          description: >-
+            Karma the post recieved by the time it was imported into the
+            database
+          example: 9001

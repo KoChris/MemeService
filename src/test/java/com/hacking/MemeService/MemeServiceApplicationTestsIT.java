@@ -1,6 +1,9 @@
 package com.hacking.MemeService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.hacking.MemeService.data.MemeRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,9 +20,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 //Run using 'mvn test -Dtest=MemeServiceApplicationTestsIT'
 
 @AutoConfigureMockMvc
@@ -33,16 +33,6 @@ class MemeServiceApplicationTestsIT {
 	@BeforeEach
 	void setUp() throws Exception {
 		deleteAllMemes();
-	}
-
-	@Test
-	@DisplayName("Can get the Kenobi quote...ITS SPELLED KENOBI CHRIS")
-	void getHello() throws Exception {
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/api/memes/hello")
-                .contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-        assertEquals("hello there", result.getResponse().getContentAsString());
 	}
 
 	@Test
@@ -94,7 +84,7 @@ class MemeServiceApplicationTestsIT {
 	}
 
 	private void deleteAllMemes() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/deleteAllMemes")
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())
