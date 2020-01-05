@@ -1,12 +1,12 @@
 package com.hacking.MemeService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.hacking.MemeService.data.MemeRepository;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.comparator.ArraySizeComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 //Run using 'mvn test -Dtest=MemeServiceApplicationTestsIT'
 
 @AutoConfigureMockMvc
@@ -26,6 +29,11 @@ class MemeServiceApplicationTestsIT {
 
 	@Autowired
 	MockMvc mockMvc;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		deleteAllMemes();
+	}
 
 	@Test
 	@DisplayName("Can get the Kenobi quote...ITS SPELLED KENOBI CHRIS")
@@ -64,14 +72,10 @@ class MemeServiceApplicationTestsIT {
 		.contentType(MediaType.APPLICATION_JSON)
 		.accept(MediaType.APPLICATION_JSON))
 		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andExpect(MockMvcResultMatchers.content().json("[{'id':'0','title':'Hello There','author':'Obi-Wan Kanobi','link':'https://www.youtube.com/watch?v=rEq1Z0bjdwc','points':9001},{'id':'1','title':'Hello There','author':'Obi-Wan Kanobi','link':'https://www.youtube.com/watch?v=rEq1Z0bjdwc','points':9001},{'id':'2','title':'Hello There','author':'Obi-Wan Kanobi','link':'https://www.youtube.com/watch?v=rEq1Z0bjdwc','points':9001},{'id':'3','title':'Hello There','author':'Obi-Wan Kanobi','link':'https://www.youtube.com/watch?v=rEq1Z0bjdwc','points':9001},{'id':'4','title':'Hello There','author':'Obi-Wan Kanobi','link':'https://www.youtube.com/watch?v=rEq1Z0bjdwc','points':9001}]"))
 		.andReturn();
-		MvcResult deleteMemes = mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/deleteAllMemes")
-		.contentType(MediaType.APPLICATION_JSON)
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(MockMvcResultMatchers.status().isOk())
-		.andReturn();
-		
+
+		String content = resultOfLoad.getResponse().getContentAsString();
+		JSONAssert.assertEquals("[28]", content, new ArraySizeComparator(JSONCompareMode.LENIENT));
 	}
 	
 	@Test
@@ -90,11 +94,14 @@ class MemeServiceApplicationTestsIT {
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().json("[{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}]"))
 			.andReturn();
-		MvcResult deleteMemes = mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/deleteAllMemes")
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andReturn();
+	}
+
+	private void deleteAllMemes() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/deleteAllMemes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andReturn();
 	}
 
 }

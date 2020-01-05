@@ -2,11 +2,12 @@ package com.hacking.MemeService;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
+import com.hacking.RedditService.RedditMemeTransformer;
+import com.hacking.RedditService.RedditService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -33,14 +34,9 @@ public class MemeRestController {
 
     @GetMapping("/loadAllMemes")
     public void loadMemes(){
+        RedditMemeTransformer memeTransformer = new RedditMemeTransformer(new RedditService());
 
-        Meme meme1 =  new Meme("0", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme2 =  new Meme("1", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme3 =  new Meme("2", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme4 =  new Meme("3", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-        Meme meme5 =  new Meme("4", "Hello There", "Obi-Wan Kanobi", "https://www.youtube.com/watch?v=rEq1Z0bjdwc", 9001);
-
-        memeRepository.saveAll(Arrays.asList(meme1,meme2,meme3,meme4,meme5));
+        memeRepository.saveAll(memeTransformer.retrieveMemes());
     }
 
     @DeleteMapping("/deleteAllMemes")
