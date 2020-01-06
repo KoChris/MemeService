@@ -6,6 +6,7 @@ import fj.F;
 import fj.data.Array;
 import fj.data.Collectors;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class FilterAnswer {
 
         Array<Meme> filteredMemes = memes.filter(greaterThan59999);
 
-        return answerToCheck.containsAll(filteredMemes.toCollection()) && filteredMemes.toCollection().containsAll(answerToCheck);
+        return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
     }
 
     public static final F<Meme, Boolean> greaterThan59999 = i -> i.getPoints() > 59999;
