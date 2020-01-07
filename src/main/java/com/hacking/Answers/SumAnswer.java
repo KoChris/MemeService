@@ -5,24 +5,23 @@ import com.hacking.MemeService.data.MemeRepository;
 import fj.F;
 import fj.data.Array;
 import fj.data.Collectors;
+import fj.function.Integers;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class FilterAnswer {
+public class SumAnswer {
 
     MemeRepository memeRepository;
 
-    public boolean isCorrect(List<Meme> answerToCheck) {
+    public boolean isCorrect(int answerToCheck) {
         List<Meme> allMemes = memeRepository.findAll();
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
-        Array<Meme> filteredMemes = memes.filter(greaterThanLimit);
-
-        return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
+        int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(Integers.add, 0);
+        System.out.println(answerToCheck);
+        System.out.println(sumMemePoints);
+        return answerToCheck == sumMemePoints;
     }
-
-    private static final F<Meme, Boolean> greaterThanLimit = i -> i.getPoints() > 59999;
 }

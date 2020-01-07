@@ -6,23 +6,23 @@ import fj.F;
 import fj.data.Array;
 import fj.data.Collectors;
 import lombok.AllArgsConstructor;
-import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class FilterAnswer {
+public class MinAnswer {
 
     MemeRepository memeRepository;
 
-    public boolean isCorrect(List<Meme> answerToCheck) {
+    public boolean isCorrect(int answerToCheck) {
         List<Meme> allMemes = memeRepository.findAll();
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
-        Array<Meme> filteredMemes = memes.filter(greaterThanLimit);
-
-        return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
+        int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(minimum, 200000);
+        System.out.println(answerToCheck);
+        System.out.println(sumMemePoints);
+        return answerToCheck == sumMemePoints;
     }
 
-    private static final F<Meme, Boolean> greaterThanLimit = i -> i.getPoints() > 59999;
+    private static final F<Integer, F<Integer, Integer>> minimum = i -> (j -> Integer.min(i, j));
 }
