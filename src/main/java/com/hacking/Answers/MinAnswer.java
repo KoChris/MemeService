@@ -19,8 +19,7 @@ public class MinAnswer {
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
         int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(minimum, 200000);
-        System.out.println(answerToCheck);
-        System.out.println(sumMemePoints);
+
         return answerToCheck == sumMemePoints;
     }
 

@@ -20,8 +20,7 @@ public class SumAnswer {
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
         int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(Integers.add, 0);
-        System.out.println(answerToCheck);
-        System.out.println(sumMemePoints);
+
         return answerToCheck == sumMemePoints;
     }
 }
