@@ -5,8 +5,11 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 
+import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.data.StudentRepository;
 
@@ -37,7 +40,7 @@ public class StudentServiceTest {
     @DisplayName("Student can be retrieved")
     public void testGetStudent() {
 
-        Student expected = new Student("email", "name", "00010");
+        Student expected = new Student("email", "name", Arrays.asList(new Challenge(1, true, new Date())));
         doReturn(Optional.of(expected)).when(mockStudentRepo).findById("email");
 
         assertEquals(expected, objectToTest.getStudent("email", "name"));

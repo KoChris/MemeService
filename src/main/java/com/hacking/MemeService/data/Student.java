@@ -1,5 +1,7 @@
 package com.hacking.MemeService.data;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ public class Student {
     private String email;
 
     private String name;
-
-    private String answeredChallenges;
+    
+    private List<Challenge> answeredChallenges;
 
 }
