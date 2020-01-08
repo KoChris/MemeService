@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.ForbiddenIndexException;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
@@ -36,7 +41,9 @@ public class AnswersRestControllerTest {
     @Test
     @DisplayName("Accepts the correct answer for the first question")
     public void canAnswerFirstQuestionCorrectly() throws WrongAnswerException, Exception {
-        doReturn(new Student("johnemail", "John Doe", "00000")).when(mockStudentService).getStudent("johnemail", "John Doe");
+        List<Challenge> challenges = Arrays.asList(new Challenge(1, false, new Date()));
+        doReturn(new Student("johnemail", "John Doe", challenges))
+            .when(mockStudentService).getStudent("johnemail", "John Doe");
         objectToTest.answerQuestion("1", "John Doe", "johnemail", "Hello World");
     }
 
