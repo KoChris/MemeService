@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/answers")
+@RequestMapping("/api/challenges")
 public class AnswersRestController {
 
     @PostMapping("/{questionIndex}")
