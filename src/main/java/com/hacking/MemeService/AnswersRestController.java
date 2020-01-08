@@ -1,7 +1,9 @@
 package com.hacking.MemeService;
 
+import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.ForbiddenIndexException;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
+import com.hacking.MemeService.students.StudentService;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
 
-@Slf4j
 @RestController
 @RequestMapping("/api/challenges")
+@AllArgsConstructor
 public class AnswersRestController {
+
+    private final StudentService students;
 
     @PostMapping("/{questionIndex}")
     public void answerQuestion(
@@ -24,25 +28,16 @@ public class AnswersRestController {
         @RequestHeader String studentEmail,
         @RequestBody final Object answer) throws WrongAnswerException, ForbiddenIndexException {
 
-            // Student posts an answer
-            // We capture their name, email, the current time and their answer
 
-            // We only need their answer to verify it's correct
-            // We store their name and email in the student object
-
-            //Student student = new Student(stu);
-            // student.setName(studentName);
-            // student.setEmail(studentEmail);
-
-
-            log.info("Student " + studentName + " at " + studentEmail);
+            Student student = students.getStudent(studentEmail, studentName);
             // TODO: Check that the email is valid
 
-            // TODO: Store the student information into the database
 
             switch (questionIndex) {
                 case "1": 
                     // TODO: Match the body with an answer
+                    // If success, save the student information
+                    students.answerQuestion(student, 1);
                     return;
                 case "2": break;
                 case "3": break;

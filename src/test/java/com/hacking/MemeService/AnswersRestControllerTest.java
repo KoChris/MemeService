@@ -2,27 +2,48 @@ package com.hacking.MemeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import com.hacking.MemeService.data.Challenge;
+import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.ForbiddenIndexException;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
+import com.hacking.MemeService.students.StudentService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class AnswersRestControllerTest {
+
+    @Mock
+    private StudentService mockStudentService;
 
     public AnswersRestController objectToTest;
 
     @BeforeEach
     public void setup() {
-        objectToTest = new AnswersRestController();
+        mockStudentService = mock(StudentService.class);
+
+        objectToTest = new AnswersRestController(mockStudentService);
     }
 
     @Test
     @DisplayName("Accepts the correct answer for the first question")
     public void canAnswerFirstQuestionCorrectly() throws WrongAnswerException, Exception {
+        List<Challenge> challenges = Arrays.asList(new Challenge(1, false, new Date()));
+        doReturn(new Student("johnemail", "John Doe", challenges))
+            .when(mockStudentService).getStudent("johnemail", "John Doe");
         objectToTest.answerQuestion("1", "John Doe", "johnemail", "Hello World");
     }
 
