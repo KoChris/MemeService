@@ -1,4 +1,4 @@
-package com.hacking.MemeService;
+package com.hacking.MemeService.rest;
 
 import java.util.List;
 

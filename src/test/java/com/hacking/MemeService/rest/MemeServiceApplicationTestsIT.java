@@ -1,7 +1,8 @@
-package com.hacking.MemeService;
+package com.hacking.MemeService.rest;
 
+import com.hacking.MemeService.MemeServiceApplication;
 import com.hacking.MemeService.data.MemeRepository;
-
+import com.hacking.MemeService.rest.MemeRestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 //Run using 'mvn test -Dtest=MemeServiceApplicationTestsIT'
 
@@ -47,7 +50,8 @@ class MemeServiceApplicationTestsIT {
 	@Test
 	@DisplayName("Memes can be loaded in bulk.")
 	void memesLoadCorrectly() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes/loadAllMemes")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/admin/loadAllMemes")
+				.with(user("admin").password("admin").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())
@@ -67,6 +71,7 @@ class MemeServiceApplicationTestsIT {
 	@DisplayName("Can save a single meme.")
 	void canSaveAMeme() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/memes/")
+				.with(user("admin").password("admin").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content("{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}"))
@@ -83,6 +88,7 @@ class MemeServiceApplicationTestsIT {
 
 	private void deleteAllMemes() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/")
+				.with(user("admin").password("admin").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())

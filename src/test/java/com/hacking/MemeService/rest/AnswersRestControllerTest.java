@@ -1,24 +1,12 @@
-package com.hacking.MemeService;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+package com.hacking.MemeService.rest;
 
 import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
+import com.hacking.MemeService.rest.AnswersRestController;
 import com.hacking.MemeService.students.StudentService;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +14,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AnswersRestControllerTest {

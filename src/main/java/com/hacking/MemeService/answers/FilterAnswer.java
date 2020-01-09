@@ -5,13 +5,15 @@ import java.util.List;
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import fj.F;
 import fj.data.Array;
 import fj.data.Collectors;
 import lombok.AllArgsConstructor;
- 
+
+@Slf4j
 @AllArgsConstructor
 public class FilterAnswer {
 
@@ -22,6 +24,7 @@ public class FilterAnswer {
         final Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
         final Array<Meme> filteredMemes = memes.filter(greaterThanLimit);
+        log.debug("ANSWER FOR FILTER QUESTION IS: {}", filteredMemes.toCollection());
 
         return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
     }
