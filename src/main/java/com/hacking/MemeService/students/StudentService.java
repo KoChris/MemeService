@@ -8,7 +8,6 @@ import java.util.List;
 import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.data.StudentRepository;
-import com.hacking.MemeService.exceptions.ForbiddenIndexException;
 
 import org.springframework.stereotype.Service;
 

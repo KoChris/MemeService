@@ -1,27 +1,30 @@
-package com.hacking.Answers;
+package com.hacking.MemeService.answers;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 class SumAnswerTest {
     SumAnswer sumAnswer;
+    
     @Mock
-    private static MemeRepository memeRepository;
+    private MemeRepository memeRepository;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         List<Meme> listToReturn = new ArrayList<>();
         Meme meme1 = new Meme("7","Test1","A", "testlink1", 100000);
         Meme meme2 = new Meme("8","Test2","B", "testlink2", 60000);
@@ -33,11 +36,15 @@ class SumAnswerTest {
         listToReturn.add(meme4);
         memeRepository = mock(MemeRepository.class);
         when(memeRepository.findAll()).thenReturn(listToReturn);
+
+        sumAnswer = new SumAnswer(memeRepository);
     }
 
-    @BeforeEach
-    void setUp() {
-        sumAnswer = new SumAnswer(memeRepository);
+    @Test
+    @DisplayName("Does shit when there's no memes")
+    void noMemememememes() {
+        when(memeRepository.findAll()).thenReturn(Collections.emptyList());
+        assertTrue(sumAnswer.isCorrect(0));
     }
 
     @Test

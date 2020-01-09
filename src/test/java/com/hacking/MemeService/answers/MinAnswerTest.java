@@ -1,4 +1,4 @@
-package com.hacking.Answers;
+package com.hacking.MemeService.answers;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,10 +19,10 @@ import static org.mockito.Mockito.when;
 class MinAnswerTest {
     MinAnswer minAnswer;
     @Mock
-    private static MemeRepository memeRepository;
+    private MemeRepository memeRepository;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void setUp() {
         List<Meme> listToReturn = new ArrayList<>();
         Meme meme1 = new Meme("7","Test1","A", "testlink1", 100000);
         Meme meme2 = new Meme("8","Test2","B", "testlink2", 60000);
@@ -31,13 +32,18 @@ class MinAnswerTest {
         listToReturn.add(meme2);
         listToReturn.add(meme3);
         listToReturn.add(meme4);
+
         memeRepository = mock(MemeRepository.class);
         when(memeRepository.findAll()).thenReturn(listToReturn);
+
+        minAnswer = new MinAnswer(memeRepository);
     }
 
-    @BeforeEach
-    void setUp() {
-        minAnswer = new MinAnswer(memeRepository);
+    @Test
+    @DisplayName("Does shit when there's no memes")
+    void noMemes() {
+        when(memeRepository.findAll()).thenReturn(Collections.emptyList());
+        assertTrue(minAnswer.isCorrect(Integer.MAX_VALUE));
     }
 
     @Test

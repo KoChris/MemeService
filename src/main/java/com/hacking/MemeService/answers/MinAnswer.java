@@ -1,17 +1,16 @@
-package com.hacking.Answers;
+package com.hacking.MemeService.answers;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
 import fj.F;
 import fj.data.Array;
 import fj.data.Collectors;
-import fj.function.Integers;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class SumAnswer {
+public class MinAnswer {
 
     MemeRepository memeRepository;
 
@@ -19,8 +18,10 @@ public class SumAnswer {
         List<Meme> allMemes = memeRepository.findAll();
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
-        int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(Integers.add, 0);
+        int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(minimum, Integer.MAX_VALUE);
 
         return answerToCheck == sumMemePoints;
     }
+
+    private static final F<Integer, F<Integer, Integer>> minimum = i -> (j -> Integer.min(i, j));
 }

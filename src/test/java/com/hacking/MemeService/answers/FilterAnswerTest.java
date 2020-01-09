@@ -1,4 +1,4 @@
-package com.hacking.Answers;
+package com.hacking.MemeService.answers;
 
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;

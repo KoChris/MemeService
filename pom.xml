@@ -80,7 +80,6 @@
 			<version>1.0.1.RELEASE</version>
 		</dependency>
 
-
 		<!-- JSON parsing dependency -->
 		<dependency>
 			<groupId>org.json</groupId>

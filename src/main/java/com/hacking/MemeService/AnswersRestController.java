@@ -1,11 +1,15 @@
 package com.hacking.MemeService;
 
-import com.hacking.MemeService.data.Student;
-import com.hacking.MemeService.exceptions.ForbiddenIndexException;
+import java.util.ArrayList;
+
+import com.hacking.MemeService.answers.FilterAnswer;
+import com.hacking.MemeService.answers.MinAnswer;
+import com.hacking.MemeService.answers.SumAnswer;
+import com.hacking.MemeService.data.Meme;
+import com.hacking.MemeService.data.MemeRepository;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
 import com.hacking.MemeService.students.StudentService;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,32 +25,48 @@ public class AnswersRestController {
 
     private final StudentService students;
 
-    @PostMapping("/{questionIndex}")
-    public void answerQuestion(
-        @PathVariable final String questionIndex,
-        @RequestHeader String studentName,
-        @RequestHeader String studentEmail,
-        @RequestBody final Object answer) throws WrongAnswerException, ForbiddenIndexException {
+    private final MemeRepository memeRepository;
 
+    @PostMapping("/filter")
+    public void answerFilterQuestion(@RequestHeader String studentName, @RequestHeader String studentEmail,
+            @RequestBody final ArrayList<Meme> answer) throws WrongAnswerException {
 
-            Student student = students.getStudent(studentEmail, studentName);
-            // TODO: Check that the email is valid
+        FilterAnswer filterAnswer = new FilterAnswer(memeRepository);
+        
+        if (filterAnswer.isCorrect(answer)) {
+            return;
+        }
 
+        throw new WrongAnswerException("Filter question was wrong");
 
-            switch (questionIndex) {
-                case "1": 
-                    // TODO: Match the body with an answer
-                    // If success, save the student information
-                    students.answerQuestion(student, 1);
-                    return;
-                case "2": break;
-                case "3": break;
-                case "4": break;
-                case "5": break;
-                default: 
-                    throw new ForbiddenIndexException("Forbidden index", questionIndex);
-            }
-        // If request body and expected result don't match, throw 400
-        throw new WrongAnswerException("Question "+ questionIndex + " was wrong");
     }
+
+    @PostMapping("/sum")
+    public void answerSumQuestion(@RequestHeader String studentName, @RequestHeader String studentEmail,
+            @RequestBody final int answer) throws WrongAnswerException {
+
+        SumAnswer sumAnswer = new SumAnswer(memeRepository);
+
+        if (sumAnswer.isCorrect(answer)) {
+            return;
+        }
+
+        throw new WrongAnswerException("Filter question was wrong");
+
+    }
+
+    @PostMapping("/min")
+    public void answerMinQuestion(@RequestHeader String studentName, @RequestHeader String studentEmail,
+            @RequestBody final int answer) throws WrongAnswerException {
+
+        MinAnswer minAnswer = new MinAnswer(memeRepository);
+
+        if (minAnswer.isCorrect(answer)) {
+            return;
+        }
+
+        throw new WrongAnswerException("Filter question was wrong");
+
+    }
+
 }
