@@ -1,12 +1,13 @@
 package com.hacking.MemeService;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.hacking.MemeService.answers.FilterAnswer;
 import com.hacking.MemeService.answers.MinAnswer;
 import com.hacking.MemeService.answers.SumAnswer;
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
+import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
 import com.hacking.MemeService.students.StudentService;
 
@@ -28,17 +29,18 @@ public class AnswersRestController {
     private final MemeRepository memeRepository;
 
     @PostMapping("/filter")
-    public void answerFilterQuestion(@RequestHeader String studentName, @RequestHeader String studentEmail,
-            @RequestBody final ArrayList<Meme> answer) throws WrongAnswerException {
+    public void answerFilterQuestion(@RequestHeader final String studentName, @RequestHeader final String studentEmail,
+            @RequestBody final List<Meme> answer) throws WrongAnswerException {
 
         FilterAnswer filterAnswer = new FilterAnswer(memeRepository);
-        
-        if (filterAnswer.isCorrect(answer)) {
-            return;
+
+        Student student = students.getOrCreateStudent(studentEmail, studentName);
+
+        if (!filterAnswer.isCorrect(answer)) {
+            throw new WrongAnswerException("Filter question was wrong");
         }
 
-        throw new WrongAnswerException("Filter question was wrong");
-
+        students.answerQuestion(student, 1);
     }
 
     @PostMapping("/sum")
@@ -47,11 +49,13 @@ public class AnswersRestController {
 
         SumAnswer sumAnswer = new SumAnswer(memeRepository);
 
-        if (sumAnswer.isCorrect(answer)) {
-            return;
+        Student student = students.getOrCreateStudent(studentEmail, studentName);
+
+        if (!sumAnswer.isCorrect(answer)) {
+            throw new WrongAnswerException("Sum question was wrong");
         }
 
-        throw new WrongAnswerException("Filter question was wrong");
+        students.answerQuestion(student, 2);
 
     }
 
@@ -61,11 +65,13 @@ public class AnswersRestController {
 
         MinAnswer minAnswer = new MinAnswer(memeRepository);
 
-        if (minAnswer.isCorrect(answer)) {
-            return;
+        Student student = students.getOrCreateStudent(studentEmail, studentName);
+
+        if (!minAnswer.isCorrect(answer)) {
+            throw new WrongAnswerException("Filter question was wrong");
         }
 
-        throw new WrongAnswerException("Filter question was wrong");
+        students.answerQuestion(student, 3);
 
     }
 
