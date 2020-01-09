@@ -1,7 +1,5 @@
 package com.hacking.MemeService;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.hacking.MemeService.data.MemeRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -92,13 +90,37 @@ class MemeServiceApplicationTestsIT {
 	}
 
 	@Test
-	@DisplayName("Students can submit an answer to a question.")
-	void canPostAnAnswer() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/1")
+	@DisplayName("Students can submit an answer to the filter question.")
+	void canPostAFilterAnswer() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/filter")
 				.contentType(MediaType.APPLICATION_JSON)
 				.header("studentName", "Johnny Bravo")
 				.header("studentEmail", "email")
-				.content("{}"))
+				.content("[]"))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
+	}
+
+	@Test
+	@DisplayName("Students can submit an answer to the sum question.")
+	void canPostASumAnswer() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/sum")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("studentName", "Johnny Bravo")
+				.header("studentEmail", "email")
+				.content("0"))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
+	}
+
+	@Test
+	@DisplayName("Students can submit an answer to the min question.")
+	void canPostAMapAnswer() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/min")
+				.contentType(MediaType.APPLICATION_JSON)
+				.header("studentName", "Johnny Bravo")
+				.header("studentEmail", "email")
+				.content(String.valueOf(Integer.MAX_VALUE)))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andReturn();
 	}
@@ -106,7 +128,7 @@ class MemeServiceApplicationTestsIT {
 	@Test
 	@DisplayName("No student name header? BAD REQUEST!")
 	void returnsBadRequestWhenStudentNameHeaderMissing() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/1")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/filter")
 				.contentType(MediaType.APPLICATION_JSON)
 				.header("studentEmail", "email")
 				.content("{}"))
@@ -118,7 +140,7 @@ class MemeServiceApplicationTestsIT {
 	@Test
 	@DisplayName("No student email header? BAD REQUEST!")
 	void returnsBadRequestWhenStudentEmailHeaderMissing() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/1")
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/challenges/filter")
 				.contentType(MediaType.APPLICATION_JSON)
 				.header("studentName", "Johnny Bravo")
 				.content("{}"))

@@ -8,7 +8,6 @@ import java.util.List;
 import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.data.StudentRepository;
-import com.hacking.MemeService.exceptions.ForbiddenIndexException;
 
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class StudentService {
 
     private final StudentRepository repository;
 
-    public Student getStudent(final String email, final String name) {
+    public Student getOrCreateStudent(final String email, final String name) {
 
         final Student student = repository.findById(email)
             .orElse(buildNewStudent(email, name));
@@ -46,8 +45,6 @@ public class StudentService {
         }
 
         student.setAnsweredChallenges(challenges);
-
-        //log.info("Student " + student.getEmail() + " with answered challenges: " + student.getAnsweredChallenges());
 
         repository.save(student);
     }

@@ -75,12 +75,12 @@ paths:
           description: Successful operation
           content: {}
   
-  /challenges/1:
+  /challenges/filter:
     post:
       tags:
         - Challenges
-      summary: Submit an answer to the first puzzle
-      operationId: answerChallenge
+      summary: Filter the memes to return all memes with a score of 60,000 or higher
+      operationId: answerFirstChallenge
       parameters:
         - name: studentName
           in: header
@@ -99,7 +99,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Challenge'
+              type: array
+              items:
+                $ref: '#/components/schemas/Meme'
         required: true
       responses:
         '200':
@@ -108,12 +110,12 @@ paths:
         '400':
           description: Bad request
           content: {}
-  /challenges/2:
+  /challenges/sum:
     post:
       tags:
         - Challenges
-      summary: Submit an answer to the second puzzle
-      operationId: answerChallenge
+      summary: The sum of the scores of all memes ever
+      operationId: answerSecondChallenge
       parameters:
         - name: studentName
           in: header
@@ -132,7 +134,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Challenge'
+              type: number
         required: true
       responses:
         '200':
@@ -142,12 +144,12 @@ paths:
           description: Bad request
           content: {}
 
-  /challenges/3:
+  /challenges/min:
     post:
       tags:
         - Challenges
-      summary: Submit an answer to the third puzzle
-      operationId: answerChallenge
+      summary: Minimum score you must reach to get to Meme Economy Top Posts of All Time
+      operationId: answerThirdChallenge
       parameters:
         - name: studentName
           in: header
@@ -166,7 +168,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Challenges'
+              type: integer
         required: true
       responses:
         '200':
@@ -178,8 +180,6 @@ paths:
 
 components:
   schemas:
-    Challenge:
-      type: object
     Meme:
       type: object
       properties:

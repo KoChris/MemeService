@@ -89,7 +89,7 @@ public class StudentServiceTest {
         Student expected = new Student("email", "name", challenges);
         doReturn(Optional.of(expected)).when(mockStudentRepo).findById("email");
 
-        assertEquals(expected, objectToTest.getStudent("email", "name"));
+        assertEquals(expected, objectToTest.getOrCreateStudent("email", "name"));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class StudentServiceTest {
     public void testGetNonexistentStudent() {
         doReturn(Optional.empty()).when(mockStudentRepo).findById("email");
 
-        Student result = objectToTest.getStudent("email", "new");
+        Student result = objectToTest.getOrCreateStudent("email", "new");
 
         assertEquals("email", result.getEmail());
         assertEquals("new", result.getName());
