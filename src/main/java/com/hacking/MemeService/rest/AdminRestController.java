@@ -6,6 +6,7 @@ import com.hacking.MemeService.data.StudentRepository;
 import com.hacking.MemeService.reddit.RedditMemeTransformer;
 import com.hacking.MemeService.reddit.RedditService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,13 +34,18 @@ public class AdminRestController {
         return studentRepository.findAll();
     }
 
+    @DeleteMapping("/studentInfo")
+    public void deleteStudentInfo(){
+        studentRepository.deleteAll();
+    }
+
     @GetMapping("/studentWithAllAnswer")
     public List<Student> returnStudentsWithAllAnswers() {
         return studentRepository.findAll();
     }
 
     @GetMapping("/studentWithAnyAnswers")
-    public List<Student> returnStudentsWithAnyAnswer() {
-        return studentRepository.findAll();
+    public List<Student> findByStudentByAnsweredQuestion() {
+        return studentRepository.findByStudentByAnsweredQuestion();
     }
 }

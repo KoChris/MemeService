@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.io.IOException;
 
-@Profile("local")
 @Configuration
+@Profile("!cloud")
 public class LocalMongoConfiguration {
 
     private static final String MONGO_DB_URL = "localhost";

@@ -41,6 +41,8 @@
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<version>1.50.5</version>
+			<!-- Uncomment below line to run in local -->
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>cz.jirutka.spring</groupId>
