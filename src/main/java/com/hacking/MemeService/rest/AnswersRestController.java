@@ -37,7 +37,7 @@ public class AnswersRestController {
         Student student = students.getOrCreateStudent(studentEmail, studentName);
 
         if (!filterAnswer.isCorrect(answer)) {
-            throw new WrongAnswerException("Filter question was wrong");
+            throw new WrongAnswerException("lol no");
         }
 
         students.answerQuestion(student, 1);
@@ -52,7 +52,7 @@ public class AnswersRestController {
         Student student = students.getOrCreateStudent(studentEmail, studentName);
 
         if (!sumAnswer.isCorrect(answer)) {
-            throw new WrongAnswerException("Sum question was wrong");
+            throw new WrongAnswerException("lol no");
         }
 
         students.answerQuestion(student, 2);
@@ -68,7 +68,7 @@ public class AnswersRestController {
         Student student = students.getOrCreateStudent(studentEmail, studentName);
 
         if (!minAnswer.isCorrect(answer)) {
-            throw new WrongAnswerException("Filter question was wrong");
+            throw new WrongAnswerException("lol no");
         }
 
         students.answerQuestion(student, 3);
