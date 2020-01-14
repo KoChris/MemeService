@@ -9,7 +9,9 @@ import fj.data.Array;
 import fj.data.Collectors;
 import fj.function.Integers;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SumAnswer {
 
@@ -20,6 +22,7 @@ public class SumAnswer {
         Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
 
         int sumMemePoints = memes.map(meme -> meme.getPoints()).foldLeft(Integers.add, 0);
+        log.debug("ANSWER FOR SUM QUESTION IS: {}", sumMemePoints);
 
         return answerToCheck == sumMemePoints;
     }

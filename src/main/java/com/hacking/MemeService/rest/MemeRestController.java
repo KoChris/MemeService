@@ -1,4 +1,4 @@
-package com.hacking.MemeService;
+package com.hacking.MemeService.rest;
 
 import java.util.List;
 
@@ -32,12 +32,6 @@ public class MemeRestController {
     @PostMapping
     public void saveMeme(@RequestBody Meme meme) {
         memeRepository.save(meme);
-    }
-
-    @GetMapping("/loadAllMemes")
-    public void loadMemes(){
-        RedditMemeTransformer memeTransformer = new RedditMemeTransformer(new RedditService());
-        memeRepository.saveAll(memeTransformer.retrieveMemes());
     }
 
     @DeleteMapping

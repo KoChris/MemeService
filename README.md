@@ -33,3 +33,18 @@ To install this service, run `mvn install` from the project root
 ## Running
 
 To run this service, run `mvn spring-boot:run` from the project root
+
+### Running in Development with Mongo
+
+The embedded mongo is only scoped to test in order to not run in pcf, in order to run embedded mongo locally, you must comment out the test scope of the dependency
+
+```xml
+<dependency>
+    <groupId>de.flapdoodle.embed</groupId>
+    <artifactId>de.flapdoodle.embed.mongo</artifactId>
+    <version>1.50.5</version>
+    <!-- Uncomment below line to run in local -->
+    <scope>test</scope>
+</dependency>
+```
+		

@@ -1,9 +1,12 @@
 
 spring:
+
   application:
     name: meme-service
 
-  profiles: local
+admin:
+  username: admin
+  password: adminPass
 
 ---
 
@@ -11,4 +14,8 @@ spring:
   profiles: cloud
 
   data:
-    mongodb.uri: mongodb+srv://MemeService:<password>@cluster0-ppzjg.gcp.mongodb.net/test?retryWrites=true&w=majority
+    mongodb.uri: ${vcap.services.memservice-config.credentials.mongodb.uri}
+
+admin:
+  username: ${vcap.services.memservice-config.credentials.admin.username}
+  password: ${vcap.services.memservice-config.credentials.admin.password}
