@@ -4,9 +4,6 @@ info:
   description: >-
     Hello fellow kids.  Use this API to download details of memes from the
     Reddit Meme Economy and solve puzzles
-  license:
-    name: TODO
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   version: 0.0.0
 
 servers:
@@ -17,18 +14,9 @@ tags:
     description: Download some may-mays
   - name: Challenges
     description: Submit your answers to the puzzles
-  - name: Admin
-    description: Admin operations which shouldn't be accessible
-    
+
 paths:
-  /memes/loadAllMemes:
-    get:
-      tags:
-      - Admin
-      summary: "Load all memes into the database"
-      responses:
-        '200':
-          description: Successful operation
+
   /memes:
     get:
       tags:
@@ -43,37 +31,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Meme'
-    post:
-      tags:
-        - Admin
-      summary: Add a new meme to the economy
-      operationId: addMeme
-      requestBody:
-        description: Meme object to be added to the database
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Meme'
-        required: true
-      responses:
-        '200':
-          description: Success
-        '400':
-          description: Bad Request
-          content: 
-            text/plain;charset=UTF-8:
-              example: "Answer does not match"
-      x-codegen-request-body-name: body
-    delete:
-      tags:
-        - Admin
-      summary: Deletes all memes
-      description: Clears the database for administrative reasons
-      operationId: deleteMemes
-      responses:
-        '200':
-          description: Successful operation
-          content: {}
   
   /challenges/filter:
     post:
@@ -132,9 +89,10 @@ paths:
       requestBody:
         description: Answer to the question
         content:
-          application/json:
+          text/plain:
             schema:
               type: number
+              example: 99
         required: true
       responses:
         '200':
@@ -166,14 +124,19 @@ paths:
       requestBody:
         description: Answer to the question
         content:
-          application/json:
+          text/plain:
             schema:
               type: integer
+              example: 99
         required: true
       responses:
         '200':
           description: 'Answer accepted, correct'
-          content: {}
+          content: 
+            text/plain:
+              schema:
+                type: string
+              
         '400':
           description: Bad request
           content: {}
@@ -182,6 +145,12 @@ components:
   schemas:
     Meme:
       type: object
+      example: 
+        id: 1
+        title: Hello There
+        author: Obi-wan Kenobi
+        link: 'https://www.youtube.com/watch?v=rEq1Z0bjdwc'
+        points: 9001
       properties:
         id:
           type: string
