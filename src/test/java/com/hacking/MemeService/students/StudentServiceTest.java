@@ -1,9 +1,11 @@
 package com.hacking.MemeService.students;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
@@ -81,7 +83,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Student can be retrieved")
+    @DisplayName("Existing student can be retrieved")
     public void testGetStudent() {
         List<Challenge> challenges = Arrays.asList(
             new Challenge(1, true, date));
@@ -90,6 +92,9 @@ public class StudentServiceTest {
         doReturn(Optional.of(expected)).when(mockStudentRepo).findById("email");
 
         assertEquals(expected, objectToTest.getOrCreateStudent("email", "name"));
+
+        // Assert that we don't save an existing student to the database on retrieval
+        verify(mockStudentRepo, never()).save(any(Student.class));
     }
 
     @Test
@@ -97,7 +102,12 @@ public class StudentServiceTest {
     public void testGetNonexistentStudent() {
         doReturn(Optional.empty()).when(mockStudentRepo).findById("email");
 
+        // Test
         Student result = objectToTest.getOrCreateStudent("email", "new");
+
+        // Verify the database was called to find and then save the student
+        verify(mockStudentRepo).findById("email");
+        verify(mockStudentRepo).save(any(Student.class));
 
         assertEquals("email", result.getEmail());
         assertEquals("new", result.getName());
