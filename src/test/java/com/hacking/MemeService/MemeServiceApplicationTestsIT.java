@@ -1,4 +1,4 @@
-package com.hacking.MemeService.rest;
+package com.hacking.MemeService;
 
 import com.hacking.MemeService.MemeServiceApplication;
 import com.hacking.MemeService.data.MemeRepository;
@@ -83,6 +83,43 @@ class MemeServiceApplicationTestsIT {
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().json("[{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}]"))
+			.andReturn();
+	}
+
+	@Test
+	@DisplayName("A meme can be added and then deleted") 
+	public void deleteOneMeme() throws Exception {
+		// Load the meme
+		mockMvc.perform(MockMvcRequestBuilders.post("/api/memes/")
+				.with(user("admin").password("admin").roles("ADMIN"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}"))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().string(""))
+			.andReturn();
+
+		// Assert that the meme is there
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().json("[{\"id\": \"5\",\"title\": \"teset\",\"author\": \"test\",\"link\": \"testtt\",\"points\": 7}]"))
+			.andReturn();
+
+		// Delete the meme
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/5").with(user("admin").password("admin").roles("ADMIN"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andReturn();
+
+		// Assert that the meme is not there
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/memes")
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers.content().json("[]"))
 			.andReturn();
 	}
 
