@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/challenges")
 @AllArgsConstructor
-public class AnswersRestController {
+public class ChallengesRestController {
 
     private final StudentService students;
 

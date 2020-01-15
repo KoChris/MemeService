@@ -83,6 +83,40 @@ public class StudentServiceTest {
     }
 
     @Test
+    @DisplayName("All students can be retrieved")
+    public void testGetAllStudents() {
+        // TODO
+        List<Student> result = objectToTest.getStudents();
+    }
+
+    @Test
+    @DisplayName("Students who answered a particular challenge can be retrieved")
+    public void something () {
+        // TODO
+        objectToTest.getStudentsWhoAnsweredChallenge(1);
+    }
+
+    @Test
+    @DisplayName("Students who answered all challenges can be retrieved")
+    public void testGetWinners() {
+        // TODO
+        List<Student> result = objectToTest.getWinners();
+    }
+
+    @Test
+    @DisplayName("Students who answered any challenge can be retrieved")
+    public void testGetParticipants() {
+        // TODO
+        List<Student> result = objectToTest.getParticipants();
+    }
+
+    @Test
+    @DisplayName("All students can be deleted")
+    public void testDeleteAllStudents() {
+        // TODO
+    }
+
+    @Test
     @DisplayName("Existing student can be retrieved")
     public void testGetStudent() {
         List<Challenge> challenges = Arrays.asList(

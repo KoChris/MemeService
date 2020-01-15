@@ -1,6 +1,7 @@
 package com.hacking.MemeService.students;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,29 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 
     private final StudentRepository repository;
+
+    public List<Student> getStudents() {
+        return repository.findAll();
+    }
+
+    public List<Student> getStudentsWhoAnsweredChallenge(int challengeIndex) {
+        // TODO
+        return Collections.emptyList();
+    }
+
+    public List<Student> getWinners() {
+        // A "winner" is a student who completed all challenges
+        return repository.findAll();
+    }
+
+    public List<Student> getParticipants() {
+        // A "participant" is a student who completed any challenge
+        return repository.findByStudentByAnsweredQuestion();
+    }
+
+    public void deleteStudents() {
+        repository.deleteAll();
+    }
 
     public Student getOrCreateStudent(final String email, final String name) {
 

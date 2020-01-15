@@ -1,12 +1,21 @@
 package com.hacking.MemeService.rest;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Meme;
 import com.hacking.MemeService.data.MemeRepository;
 import com.hacking.MemeService.data.Student;
 import com.hacking.MemeService.exceptions.WrongAnswerException;
-import com.hacking.MemeService.rest.AnswersRestController;
 import com.hacking.MemeService.students.StudentService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,20 +24,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(MockitoExtension.class)
-public class AnswersRestControllerTest {
+public class ChallengesRestControllerTest {
 
     @Mock
     private StudentService mockStudentService;
 
-    public AnswersRestController objectToTest;
+    public ChallengesRestController objectToTest;
     
     final Meme meme1 = new Meme("7", "Test1", "A", "testlink1", 100000);
     final Meme meme2 = new Meme("8", "Test2", "B", "testlink2", 60000);
@@ -46,7 +48,7 @@ public class AnswersRestControllerTest {
         mockStudentService = mock(StudentService.class);
         mockMemeRepository = mock(MemeRepository.class);
 
-        objectToTest = new AnswersRestController(mockStudentService, mockMemeRepository);
+        objectToTest = new ChallengesRestController(mockStudentService, mockMemeRepository);
 
         List<Meme> listToReturn = Arrays.asList(meme1, meme2, meme3, meme4);
         when(mockMemeRepository.findAll()).thenReturn(listToReturn);
