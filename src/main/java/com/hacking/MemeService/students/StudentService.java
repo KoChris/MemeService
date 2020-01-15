@@ -24,7 +24,11 @@ public class StudentService {
     public Student getOrCreateStudent(final String email, final String name) {
 
         final Student student = repository.findById(email)
-            .orElse(buildNewStudent(email, name));
+            .orElseGet(() -> {
+                Student s = buildNewStudent(email, name); 
+                repository.save(s);
+                return s; 
+            });
 
         log.info("Student returned: " + student);
 
