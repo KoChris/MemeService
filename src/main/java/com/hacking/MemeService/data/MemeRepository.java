@@ -6,4 +6,6 @@ public interface MemeRepository extends MongoRepository<Meme, String> {
 
     public Meme findByTitle(String title);
 
+    public void deleteById(String id);
+
 }
