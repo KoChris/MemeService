@@ -26,7 +26,9 @@ public class AdminRestController {
     private RedditMemeTransformer memeTransformer;
 
     @GetMapping("/loadAllMemes")
-    public void loadMemes(@RequestParam Integer number, @RequestParam(defaultValue = "false") Boolean includeAds){
+    public void loadMemes(
+        @RequestParam Integer number, 
+        @RequestParam(defaultValue = "false") Boolean includeAds){
 
         List<Meme> memes = memeTransformer.retrieveMemes(number);
         if (!includeAds) {
@@ -34,6 +36,11 @@ public class AdminRestController {
         } else {
             memeRepository.saveAll(memes);
         }
+    }
+
+    @DeleteMapping("/memes")
+    public void deleteAllMemes() {
+        memeRepository.deleteAll();
     }
 
     // get all students

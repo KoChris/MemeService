@@ -33,11 +33,6 @@ public class MemeRestController {
         memeRepository.save(meme);
     }
 
-    @DeleteMapping
-    public void deleteMemes(){
-        memeRepository.deleteAll();
-    }
-
     @DeleteMapping("/{id}")
     public void deleteMeme(@PathVariable String id) {
         memeRepository.deleteById(id);

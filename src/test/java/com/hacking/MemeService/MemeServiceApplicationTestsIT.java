@@ -124,7 +124,7 @@ class MemeServiceApplicationTestsIT {
 	}
 
 	private void deleteAllMemes() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/memes/")
+		mockMvc.perform(MockMvcRequestBuilders.delete("/api/admin/memes/")
 				.with(user("admin").password("admin").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
