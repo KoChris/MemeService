@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.hacking.MemeService.data.MemeRepository;
 import com.hacking.MemeService.data.Student;
+import com.hacking.MemeService.reddit.RedditMemeTransformer;
 import com.hacking.MemeService.students.StudentService;
 
 import org.junit.Before;
@@ -22,6 +23,9 @@ public class AdminRestControllerTest {
     private MemeRepository mockMemeRepository;
 
     @Mock
+    private RedditMemeTransformer mockMemeTransformer;
+
+    @Mock
     private StudentService mockStudentService;
 
     private AdminRestController objectToTest;
@@ -31,7 +35,9 @@ public class AdminRestControllerTest {
     public void setup() {
         mockStudentService = mock(StudentService.class);
 
-        objectToTest = new AdminRestController(mockMemeRepository, mockStudentService);
+        mockMemeTransformer = mock(RedditMemeTransformer.class);
+
+        objectToTest = new AdminRestController(mockMemeRepository, mockMemeTransformer, mockStudentService);
     }
 
     @Test
@@ -52,35 +58,35 @@ public class AdminRestControllerTest {
     @DisplayName("can get students who answered all challenges")
     public void getStudentsWhoAnsweredAll() {
         // TODO
-        List<Student> result = objectToTest.getStudentBy("all");
+        List<String> result = objectToTest.getStudentBy("all");
     }
 
     @Test
     @DisplayName("can get students who answered at least one challenge")
     public void getStudentsWhoAnsweredOne() {
         // TODO
-        List<Student> result = objectToTest.getStudentBy("any");
+        List<String> result = objectToTest.getStudentBy("any");
     }
 
     @Test
     @DisplayName("can get students who answered the filter question")
     public void getStudentsWhoAnsweredFilter() {
         // TODO
-        List<Student> result = objectToTest.getStudentBy("filter");
+        List<String> result = objectToTest.getStudentBy("filter");
     }
 
     @Test
     @DisplayName("can get students who answered the sum question")
     public void getStudentsWhoAnsweredSum() {
         // TODO
-        List<Student> result = objectToTest.getStudentBy("sum");
+        List<String> result = objectToTest.getStudentBy("sum");
     }
 
     @Test
     @DisplayName("can get students who answered the min question")
     public void getStudentsWhoAnsweredMin() {
         // TODO
-        List<Student> result = objectToTest.getStudentBy("min");
+        List<String> result = objectToTest.getStudentBy("min");
     }
 
 }

@@ -1,10 +1,11 @@
 package com.hacking.MemeService.students;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.hacking.MemeService.data.Challenge;
 import com.hacking.MemeService.data.Student;
@@ -25,20 +26,50 @@ public class StudentService {
     public List<Student> getStudents() {
         return repository.findAll();
     }
+    
+    public List<String> getStudentEmails() {
+        return repository.findAll().stream().map(Student::getEmail).collect(Collectors.toList());
+    }
 
-    public List<Student> getStudentsWhoAnsweredChallenge(int challengeIndex) {
+    // TODO: Test this!!!!!
+    public List<String> getStudentsWhoAnsweredChallenge(int challengeIndex) {
+        Stream<Student> students = repository.findAll().stream();
+
+        Stream<String> filtered = students
+            .filter(s -> s.getAnsweredChallenges().get(challengeIndex - 1).getSolved())
+            .map(Student::getEmail);
         // TODO
-        return Collections.emptyList();
+        return filtered.collect(Collectors.toList());
     }
 
-    public List<Student> getWinners() {
+    // TODO: Test this PLOX
+    public List<String> getWinners() {
         // A "winner" is a student who completed all challenges
-        return repository.findAll();
+        List<Student> students = repository.findAll();
+        
+        List<String> winners = students.stream()
+            .filter(this::studentAnsweredAllChallenges)
+            .map(Student::getEmail)
+            .collect(Collectors.toUnmodifiableList());
+        
+        return winners;
     }
 
-    public List<Student> getParticipants() {
+    private boolean studentAnsweredAllChallenges(Student student) {
+        // TODO: Can this be better done functionally
+        for (Challenge c: student.getAnsweredChallenges()) {
+            if (!c.getSolved()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<String> getParticipants() {
         // A "participant" is a student who completed any challenge
-        return repository.findByStudentByAnsweredQuestion();
+        return repository.findByStudentByAnsweredQuestion()
+            .stream().map(Student::getEmail)
+            .collect(Collectors.toList());
     }
 
     public void deleteStudents() {

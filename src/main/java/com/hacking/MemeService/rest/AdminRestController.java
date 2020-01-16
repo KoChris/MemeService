@@ -58,7 +58,7 @@ public class AdminRestController {
     }
 
     @GetMapping("students")
-    public List<Student> getStudentBy(@RequestParam String answered) {
+    public List<String> getStudentBy(@RequestParam String answered) {
         switch (answered) {
             case "all": 
                 return studentService.getWinners();
@@ -71,18 +71,18 @@ public class AdminRestController {
             case "min": 
                 return studentService.getStudentsWhoAnsweredChallenge(3);
             default:
-                return studentService.getStudents();
+                return studentService.getStudentEmails();
         }
     }
 
     @GetMapping("/studentWithAllAnswer")
-    public List<Student> returnStudentsWithAllAnswers() {
+    public List<String> returnStudentsWithAllAnswers() {
         // TODO: deprecate this endpoint
         return studentService.getWinners();
     }
 
     @GetMapping("/studentWithAnyAnswers")
-    public List<Student> findByStudentByAnsweredQuestion() {
+    public List<String> findByStudentByAnsweredQuestion() {
         // TODO: deprecate this endpoint
         return studentService.getParticipants();
     }

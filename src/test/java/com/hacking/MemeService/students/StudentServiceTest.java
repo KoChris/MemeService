@@ -35,6 +35,8 @@ public class StudentServiceTest {
 
         private Student left;
 
+        // TODO: We might be able to replace this if we use Java CLOCK
+        // instead of Date
         @Override
         public boolean matches(Student right) {
 
@@ -93,21 +95,21 @@ public class StudentServiceTest {
     @DisplayName("Students who answered a particular challenge can be retrieved")
     public void something () {
         // TODO
-        objectToTest.getStudentsWhoAnsweredChallenge(1);
+        //objectToTest.getStudentsWhoAnsweredChallenge(1);
     }
 
     @Test
     @DisplayName("Students who answered all challenges can be retrieved")
     public void testGetWinners() {
         // TODO
-        List<Student> result = objectToTest.getWinners();
+        List<String> result = objectToTest.getWinners();
     }
 
     @Test
     @DisplayName("Students who answered any challenge can be retrieved")
     public void testGetParticipants() {
         // TODO
-        List<Student> result = objectToTest.getParticipants();
+        List<String> result = objectToTest.getParticipants();
     }
 
     @Test
