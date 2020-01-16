@@ -1,12 +1,14 @@
 package com.hacking.MemeService.reddit;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
 public class RedditService {
     private static WebClient webClient;
 
@@ -31,6 +33,30 @@ public class RedditService {
 
     public RedditService() {
         this("https://gateway.reddit.com/desktopapi/v1/");
+    }
+
+    public String getMemesAfter(String subReddit, String memeId) {
+        try {
+            return webClient.get()
+                    .uri(uriBuilder -> uriBuilder.path("subreddits/" + subReddit)
+                            .queryParam("rtj","only")
+                            .queryParam("redditWebClient","web2x")
+                            .queryParam("app","web2x-client-production")
+                            .queryParam("allow_over18","false")
+                            .queryParam("include","prefsSubreddit")
+                            .queryParam("t","all")
+                            .queryParam("sort","top")
+                            .queryParam("geo_filter","CA")
+                            .queryParam("layout","card")
+                            .queryParam("after", memeId)
+                            .build())
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+        } catch (WebClientException e) {
+            log.info("Got a bad response from the reddit API: " + e.getMessage());
+            return "";
+        }
     }
 
 
