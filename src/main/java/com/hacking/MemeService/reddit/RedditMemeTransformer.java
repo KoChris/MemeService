@@ -32,6 +32,9 @@ public class RedditMemeTransformer {
         String redditApiResponse = redditService.getTopAllTimeMemes("MemeEconomy");
         List<Meme> topMemes = extractMemes(redditApiResponse);
 
+        // TODO: Theoretically, if there's not enough memes this WILL go
+        // into an infinite loop.  This can be fixed, but until then,
+        // assume that Reddit never runs out of memes
         while (topMemes.size() < approximateAmount) {
             String id = topMemes.get(topMemes.size() - 1).getId();
 

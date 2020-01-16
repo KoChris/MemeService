@@ -48,9 +48,9 @@ class MemeServiceApplicationTestsIT {
 	}
 	
 	@Test
-	@DisplayName("Memes can be loaded in bulk.")
+	@DisplayName("Memes with ads can be loaded in bulk.")
 	void memesLoadCorrectly() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/admin/loadAllMemes")
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/admin/loadAllMemes?number=28&includeAds=true")
 				.with(user("admin").password("admin").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
