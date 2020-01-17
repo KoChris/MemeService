@@ -57,7 +57,10 @@ public class StudentService {
 
     private boolean studentAnsweredAllChallenges(Student student) {
         // TODO: Can this be better done functionally
-        for (Challenge c: student.getAnsweredChallenges()) {
+        // TODO: Hack, we scaled from 5 to 3 challenges
+        //for (Challenge c: student.getAnsweredChallenges()) {
+        for (int i = 0; i < 3; i++) {
+            Challenge c = student.getAnsweredChallenges().get(i);
             if (!c.getSolved()) {
                 return false;
             }
