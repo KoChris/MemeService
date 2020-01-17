@@ -35,6 +35,8 @@ public class StudentServiceTest {
 
         private Student left;
 
+        // TODO: We might be able to replace this if we use Java CLOCK
+        // instead of Date
         @Override
         public boolean matches(Student right) {
 
@@ -80,6 +82,40 @@ public class StudentServiceTest {
         mockStudentRepo = mock(StudentRepository.class);
 
         objectToTest = new StudentService(mockStudentRepo);
+    }
+
+    @Test
+    @DisplayName("All students can be retrieved")
+    public void testGetAllStudents() {
+        // TODO
+        List<Student> result = objectToTest.getStudents();
+    }
+
+    @Test
+    @DisplayName("Students who answered a particular challenge can be retrieved")
+    public void something () {
+        // TODO
+        //objectToTest.getStudentsWhoAnsweredChallenge(1);
+    }
+
+    @Test
+    @DisplayName("Students who answered all challenges can be retrieved")
+    public void testGetWinners() {
+        // TODO
+        List<String> result = objectToTest.getWinners();
+    }
+
+    @Test
+    @DisplayName("Students who answered any challenge can be retrieved")
+    public void testGetParticipants() {
+        // TODO
+        List<String> result = objectToTest.getParticipants();
+    }
+
+    @Test
+    @DisplayName("All students can be deleted")
+    public void testDeleteAllStudents() {
+        // TODO
     }
 
     @Test
