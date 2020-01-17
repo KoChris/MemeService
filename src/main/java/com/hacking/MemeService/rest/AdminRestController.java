@@ -27,7 +27,6 @@ public class AdminRestController {
 
     private StudentService studentService;
 
-
     @GetMapping("/loadAllMemes")
     public void loadMemes(
         @RequestParam Integer number, 
