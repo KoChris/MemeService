@@ -50,7 +50,7 @@ public class StudentService {
         List<String> winners = students.stream()
             .filter(this::studentAnsweredAllChallenges)
             .map(Student::getEmail)
-            .collect(Collectors.toUnmodifiableList());
+            .collect(Collectors.toList());
         
         return winners;
     }

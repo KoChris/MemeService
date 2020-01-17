@@ -41,7 +41,7 @@
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
 			<version>1.50.5</version>
-			<!-- Comment below line to run in local -->
+			<!-- Uncomment below line to run in local -->
 			<scope>test</scope>
 		</dependency>
 		<dependency>
