@@ -28,6 +28,17 @@ public class ChallengesRestController {
 
     private final MemeRepository memeRepository;
 
+    @PostMapping("/demo/filter")
+    public void answerFilterDemo(@RequestBody final List<Meme> answer) throws WrongAnswerException {
+
+        FilterAnswer filterAnswer = new FilterAnswer(memeRepository);
+
+        if (!filterAnswer.isDemoCorrect(answer)) {
+            throw new WrongAnswerException("The filtered list is wrong. Try again.");
+        }
+
+    }
+
     @PostMapping("/filter")
     public void answerFilterQuestion(@RequestHeader final String studentName, @RequestHeader final String studentEmail,
             @RequestBody final List<Meme> answer) throws WrongAnswerException {
@@ -43,6 +54,16 @@ public class ChallengesRestController {
         students.answerQuestion(student, 1);
     }
 
+    @PostMapping("/demo/sum")
+    public void answerSumDemo(@RequestBody final int answer) throws WrongAnswerException {
+
+        SumAnswer sumAnswer = new SumAnswer(memeRepository);
+
+        if (!sumAnswer.isDemoCorrect(answer)) {
+            throw new WrongAnswerException("The filtered list is wrong. Try again.");
+        }
+    }    
+
     @PostMapping("/sum")
     public void answerSumQuestion(@RequestHeader String studentName, @RequestHeader String studentEmail,
             @RequestBody final int answer) throws WrongAnswerException {
@@ -56,7 +77,6 @@ public class ChallengesRestController {
         }
 
         students.answerQuestion(student, 2);
-
     }
 
     @PostMapping("/min")
@@ -72,7 +92,6 @@ public class ChallengesRestController {
         }
 
         students.answerQuestion(student, 3);
-
     }
 
 }

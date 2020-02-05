@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class FilterAnswer {
 
-    MemeRepository memeRepository;
+    private MemeRepository memeRepository;
 
     public boolean isCorrect(final List<Meme> answerToCheck) {
         final List<Meme> allMemes = memeRepository.findAll();
@@ -25,6 +25,15 @@ public class FilterAnswer {
 
         final Array<Meme> filteredMemes = memes.filter(greaterThanLimit);
         log.debug("ANSWER FOR FILTER QUESTION IS: {}", filteredMemes.toCollection());
+
+        return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
+    }
+
+    public boolean isDemoCorrect(final List<Meme> answerToCheck) {
+        final List<Meme> allMemes = memeRepository.findAll();
+        final Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
+
+        final Array<Meme> filteredMemes = memes.filter(i -> i.getPoints() > 190000);
 
         return CollectionUtils.isEqualCollection(filteredMemes.toCollection(), answerToCheck);
     }
