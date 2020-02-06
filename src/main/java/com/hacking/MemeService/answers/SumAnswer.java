@@ -26,4 +26,14 @@ public class SumAnswer {
 
         return answerToCheck == sumMemePoints;
     }
+
+    public boolean isDemoCorrect(int answerToCheck) {
+        List<Meme> allMemes = memeRepository.findAll();
+        Array<Meme> memes = allMemes.stream().collect(Collectors.toArray());
+
+        int sumMemePoints = memes.map(meme -> 1).foldLeft(Integers.add, 0);
+        log.debug("ANSWER FOR SUM QUESTION IS: {}", sumMemePoints);
+
+        return answerToCheck == sumMemePoints;
+    }
 }
